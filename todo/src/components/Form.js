@@ -7,14 +7,21 @@ const Form = props => {
     setInput(event.target.value);
   };
 
-  const addTask = () => {
+  const addTask = event => {
+    event.preventDefault();
     props.taskReducer({ type: 'ADD-TASK', payload: input });
+    setInput('');
+  };
+
+  const deleteCompleted = event => {
+    event.preventDefault();
+    props.taskReducer({ type: 'DELETE-COMPLETED' });
   };
 
   return (
     <div className="form">
       <h1>Todo List</h1>
-      <div className="form-input">
+      <form className="form-input" onSubmit={addTask}>
         <input
           onChange={handleChanges}
           type="text"
@@ -22,8 +29,13 @@ const Form = props => {
           value={input}
           placeholder="Add a task"
         />
-        <button onClick={addTask}>+</button>
-      </div>
+        <div>
+          <button onClick={addTask}>+</button>
+          <button className="delete" onClick={deleteCompleted}>
+            Clear Completed
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

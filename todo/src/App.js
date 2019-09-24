@@ -6,10 +6,11 @@ import './App.css';
 
 function App() {
   const [state, dispatch] = useReducer(taskReducer, initialState);
+
   return (
     <div className="App">
       <Form taskReducer={dispatch} />
-      <TodoList state={state} />
+      <TodoList state={state} taskReducer={dispatch} />
     </div>
   );
 }
